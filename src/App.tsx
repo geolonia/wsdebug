@@ -6,6 +6,12 @@ import './App.scss';
 const App = () => {
 
   const [message, setMessage] = React.useState({});
+  const [channel, setChannel] = React.useState('ws');
+
+  window.addEventListener('hashchange', (event) => {
+    console.log(window.location.hash)
+    setChannel(window.location.hash);
+  })
 
   React.useEffect(() => {
     ws.addEventListener('open', () => {
