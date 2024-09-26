@@ -2,23 +2,28 @@ import React from 'react';
 import ws from './lib/ws'
 
 import './App.scss';
+import { useRouteLoaderData } from 'react-router-dom';
+
+let channel = 'ws'
+
+if (window.location.hash && window.location.hash.slice(1)) {
+  channel = window.location.hash.slice(1)
+}
+
+window.addEventListener('hashchange', () => {
+  window.location.reload()
+})
 
 const App = () => {
-
   const [message, setMessage] = React.useState({});
-  const [channel, setChannel] = React.useState('ws');
-
-  window.addEventListener('hashchange', (event) => {
-    console.log(window.location.hash)
-    setChannel(window.location.hash);
-  })
 
   React.useEffect(() => {
     ws.addEventListener('open', () => {
-      console.log('WebSocket opened')
+      console.log(`WebSocket opened at ${channel}`)
+
       ws.send(JSON.stringify({
         action: "subscribe",
-        channel: "signage"
+        channel: channel
       }));
     })
 
@@ -31,11 +36,10 @@ const App = () => {
     })
 
     ws.addEventListener('message', (message) => {
-      console.log(message.data)
       const rawPayload = JSON.parse(message.data);
       setMessage(rawPayload.msg);
     })
-  }, [message])
+  }, [channel])
 
   return (
     <div className="App">
