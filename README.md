@@ -13,10 +13,9 @@ http://localhost:3000/#my-channel
 
 以下のコマンドを実行
 
-```
-curl \
-  -XPOST \
-  -d '{"message":"Hello World"}' \
-  -H 'content-type: application/json' \
-  'https://api-ws-admin.geolonia.com/dev/channels/my-channel/messages'
+```bash
+GEOJSON=`curl -L https://opendata.takamatsu-fact.com/environmental_facilities/data.geojson`
+curl -XPOST -d "{\"message\": $GEOJSON}" \
+-H 'content-type: application/json' \
+'https://api-ws-admin.geolonia.com/dev/channels/my-channel/messages'
 ```
