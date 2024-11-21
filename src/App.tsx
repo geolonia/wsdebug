@@ -37,7 +37,7 @@ const App = () => {
 
     ws.addEventListener('message', (message) => {
       const rawPayload = JSON.parse(message.data);
-      setMessage(rawPayload.msg);
+      setMessage(rawPayload);
     })
   }, [channel])
 
