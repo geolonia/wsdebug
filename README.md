@@ -11,6 +11,12 @@ $ npm start
 http://localhost:3000/#my-channel
 ```
 
+または
+
+```
+https://geolonia.github.io/wsdebug/#my-channel
+```
+
 以下のコマンドを実行
 
 ```bash
